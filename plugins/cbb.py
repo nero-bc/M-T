@@ -10,12 +10,12 @@ async def cb_handler(client: Bot, query: CallbackQuery):
     data = query.data
     if data == "about":
         await query.message.edit_text(
-            text = f"○ 𝖢𝗋𝖾𝖺𝗍𝗈𝗋 : <a href='tg://user?id={OWNER_ID}'>𝖳𝗁𝗂𝗌 𝖯𝖾𝗋𝗌𝗈𝗇</a>\n○ 𝖫𝖺𝗇𝗀𝗎𝖺𝗀𝖾 : <code>𝖯𝖺𝗒𝗍𝗁𝗈𝗇 𝟥</code>\n○ 𝖲𝗈𝗎𝗋𝖼𝖾 𝖢𝗈𝖽𝖾 : <a href='tg://user?id={OWNER_ID}'>𝖯𝖺𝗂𝖽</a>\n○ 𝖢𝗁𝖺𝗇𝗇𝖾𝗅 : <a href='https://t.me/Vip_studios'>𝖵𝖨𝖯 𝖲𝗍𝗎𝖽𝗂𝗈𝗌</a>\n○ 𝖲𝗎𝗉𝗉𝗈𝗋𝗍 𝖦𝗋𝗈𝗎𝗉 : <a href='https://t.me/+UoOAfvRc8R0zNjg1'>𝖣𝗂𝗌𝖼𝗎𝗌𝗌𝗂𝗈𝗇 𝖢𝗁𝖺𝗍</a>",
+            text = f"<blockquote><b>📯 Bot Developer: @StupidBoi69\n🏖️ More Bots: @jr_bots</b></blockquote>",
             disable_web_page_preview = True,
             reply_markup = InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("🔒 Close", callback_data = "close")
+                        InlineKeyboardButton("📴 Close", callback_data = "close")
                     ]
                 ]
             )
