@@ -1,3 +1,0 @@
-git pull
-pip install --quiet -r requirements.txt
-python3 main.py
