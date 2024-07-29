@@ -25,7 +25,9 @@ from config import (
     DISABLE_CHANNEL_BUTTON,
     PROTECT_CONTENT,
     TUT_VID,
-    OWNER_ID
+    OWNER_ID,
+    REQUEST1,
+    REQUEST2
 )
 from database.token_db import *
 from database.database import add_user, del_user, full_userbase, present_user, fsub
@@ -187,12 +189,9 @@ async def not_joined(client: Client, message: Message):
         try:
             invite_link = await client.create_chat_invite_link(chat_id=int(force_sub_channel))
             buttons.append(
-                
-                    InlineKeyboardButton(
-                        f"Join Channel {idx}",
-                        url=invite_link.invite_link
-                    )
-                
+                    InlineKeyboardButton(f"Request 1", url=REQUEST1),
+                    InlineKeyboardButton(f"Request 2", url=REQUEST2),           
+                    InlineKeyboardButton(f"Join Channel {idx}", url=invite_link.invite_link)               
             )
         except Exception as e:
             print(f"Error creating invite link for channel {force_sub_channel}: {e}")
