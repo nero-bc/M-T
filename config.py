@@ -3,6 +3,8 @@ import logging
 from operator import add
 from logging.handlers import RotatingFileHandler
 
+REQUEST1 = os.environ.get("REQUEST1", "https://t.me/+Opt-5-pvVMcyNzA1")
+REQUEST2 = os.environ.get("REQUEST2", "https://t.me/+LDdjfyT53hdiYzE1")
 
 TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "6341809781:AAGR06ZHSMP8hNLykwU_8wusKmrSdrCZKBA") #@Contentprovider_ebot
 APP_ID = int(os.environ.get("APP_ID", "25695562"))
