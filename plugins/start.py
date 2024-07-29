@@ -34,6 +34,10 @@ from database.database import add_user, del_user, full_userbase, present_user, f
 from helper_func import subscribed, encode, decode, get_messages, get_shortlink, get_verify_status, update_verify_status, get_exp_time
 from shortzy import Shortzy
 
+WAIT_MSG = """"<b>Processing ...</b>"""
+REPLY_ERROR = """<blockquote><b>Use this command as a reply to any telegram message without any spaces.</b></blockquote>"""
+
+
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
 async def start_command(client: Client, message: Message):
     id = message.from_user.id
@@ -160,18 +164,9 @@ async def start_command(client: Client, message: Message):
                     [InlineKeyboardButton('🦋 Tutorial', url=TUT_VID)]
                     ]
                 await message.reply(f"<blockquote><b>ℹ️ Hi @{message.from_user.username}\nYour verification is expired, click on below button and complete the verification to\n <u>Get free access for 24-hrs</u></b></blockquote>", reply_markup=InlineKeyboardMarkup(btn), protect_content=False, quote=True)
-                
+                return
 
-    
-#=====================================================================================##
 
-WAIT_MSG = """"<b>Processing ...</b>"""
-
-REPLY_ERROR = """<blockquote><b>Use this command as a reply to any telegram message without any spaces.</b></blockquote>"""
-
-#=====================================================================================##
-
-        
 @Bot.on_message(filters.command('start') & filters.private)
 async def not_joined(client: Client, message: Message):
     buttons = []
@@ -184,43 +179,24 @@ async def not_joined(client: Client, message: Message):
 
     force_sub_channels = fsub_entry["channel_ids"]
     
+    # Add static buttons for REQUEST1 and REQUEST2
+    buttons.append(InlineKeyboardButton("Request 1", url=REQUEST1))
+    buttons.append(InlineKeyboardButton("Request 2", url=REQUEST2))
+    
     # Iterate through each force subscription channel
     for idx, force_sub_channel in enumerate(force_sub_channels, start=1):
         try:
             invite_link = await client.create_chat_invite_link(chat_id=int(force_sub_channel))
-            buttons.append(
-                    InlineKeyboardButton(f"Request 1", url=REQUEST1),
-                    InlineKeyboardButton(f"Request 2", url=REQUEST2),           
-                    InlineKeyboardButton(f"Join Channel {idx}", url=invite_link.invite_link)               
-            )
+            buttons.append(InlineKeyboardButton(f"Join {idx}", url=invite_link.invite_link))
         except Exception as e:
             print(f"Error creating invite link for channel {force_sub_channel}: {e}")
-    i=0
-    button1 = []
-    button2 = []
-    for button in buttons:
-        i = i+1
-        if i%2==0:
-            button2.append(button)
-        else:
-            button1.append(button)
 
-    if len(buttons)%2==1:
-        exbtn = button1.pop()
+    # Group buttons into rows of two
+    button_rows = [buttons[i:i + 2] for i in range(0, len(buttons), 2)]
 
-    newbuttons = []
-    if len(button1)>0 and len(button2)>0:
-        for btn1,btn2 in zip(button1,button2):
-            newbuttons.append(
-            [
-                btn1,
-                btn2
-            ]
-        )
-    if len(buttons)%2==1:
-        newbuttons.append([exbtn])
+    # Add the 'Try Again' button at the end
     try:
-        newbuttons.append(
+        button_rows.append(
             [
                 InlineKeyboardButton(
                     text='🔄 Try Again',
@@ -230,6 +206,7 @@ async def not_joined(client: Client, message: Message):
         )
     except IndexError:
         pass
+
     await message.reply(
         text=FORCE_MSG.format(
             first=message.from_user.first_name,
@@ -238,10 +215,11 @@ async def not_joined(client: Client, message: Message):
             mention=message.from_user.mention,
             id=message.from_user.id
         ),
-        reply_markup=InlineKeyboardMarkup(newbuttons),
+        reply_markup=InlineKeyboardMarkup(button_rows),
         quote=True,
         disable_web_page_preview=True
     )
+       
 
 @Bot.on_message(filters.command('users') & filters.private & filters.user(ADMINS))
 async def get_users(client: Bot, message: Message):
