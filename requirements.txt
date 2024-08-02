@@ -1,7 +1,7 @@
 # --- For-Bot-Working --------- #
-git+https://github.com/Mayuri-Chan/pyrofork
+pyrofork
 TgCrypto
-pyromod==1.5
+pyromod
 # --- For-Database ------------ #
 pymongo
 motor
