@@ -1,12 +1,17 @@
-FROM python:3.12
+# Base image
+FROM python:3.9-slim
 
+# Set the working directory
 WORKDIR /app
-COPY requirements.txt requirements.txt
 
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -v git+https://github.com/Mayuri-Chan/pyrofork
-RUN pip install --no-cache-dir -v -r requirements.txt
+# Copy the requirements.txt file
+COPY requirements.txt .
 
+# Install the dependencies with the latest versions
+RUN pip3 install --upgrade -r requirements.txt
+
+# Copy the rest of the application code
 COPY . .
-EXPOSE 8080
+
+# Command to run the application
 CMD ["python3", "main.py"]
