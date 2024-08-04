@@ -1,17 +1,13 @@
-# Base image
-FROM python:3.9-slim
+FROM python:3.11
 
-# Set the working directory
-WORKDIR /app
+RUN apt update -y && apt upgrade -y && \ 
+    apt install -y --no-install-recommends git && \
+    rm -rf /var/lib/apt/lists/* 
+    
+RUN git clone https://github.com/nero-bc/M-T app
 
-# Copy the requirements.txt file
-COPY requirements.txt .
+WORKDIR app
 
-# Install the dependencies with the latest versions
-RUN pip3 install --upgrade -r requirements.txt
+RUN pip3 install -r requirements.txt
 
-# Copy the rest of the application code
-COPY . .
-
-# Command to run the application
-CMD ["python3", "main.py"]
+CMD ["bash", "start"]
