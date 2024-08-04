@@ -3,10 +3,10 @@ import logging
 from operator import add
 from logging.handlers import RotatingFileHandler
 
-REQUEST1 = os.environ.get("REQUEST1", "https://t.me/+Opt-5-pvVMcyNzA1")
-REQUEST2 = os.environ.get("REQUEST2", "https://t.me/+LDdjfyT53hdiYzE1")
+REQUEST1 = os.environ.get("REQUEST1", "https://t.me/+LWJv7cjURvoyYWU1")
+REQUEST2 = os.environ.get("REQUEST2", "https://t.me/+R6xc_7a0yX4xYzVl")
 
-TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "6341809781:AAGaJ3s8QnxtRAfvcclL8vLmQiQmhCPSYek") #@Contentprovider_ebot
+TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "6341809781:AAEnZEf1d17zmEO6Z3JpnV51eVfL6cX7HNA") #@Contentprovider_ebot
 APP_ID = int(os.environ.get("APP_ID", "25695562"))
 API_HASH = os.environ.get("API_HASH", "0b691c3e86603a7e34aae0b5927d725a")
 CHANNEL_ID = int(os.environ.get("CHANNEL_ID", "-1001902545745"))
