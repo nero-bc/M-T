@@ -10,4 +10,4 @@ WORKDIR app
 
 RUN pip3 install -r requirements.txt
 
-CMD ["bash", "start"]
+CMD ["python3", "main.py"]
